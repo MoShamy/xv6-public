@@ -33,7 +33,7 @@ int custom_atoi(const char *s) {
   }
 
   while ('0' <= *s && *s <= '9') { // converting string to int, taken from the refular atoi function  --Mostafa
-      n = n * 10 + (*s - '0');
+      n = n * 10 + (*s - '0'); //ascii conversion
       s++;
   }
 
