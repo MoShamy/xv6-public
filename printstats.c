@@ -1,8 +1,91 @@
-//
-//  printstats.c
-//  
-//
-//  Created by Ahmed El Dessouky on 23/02/2025.
-//
+// user/printstats.c
+#include "types.h"
+#include "stat.h"
+#include "user.h"
 
-#include <stdio.h>
+// Declare external functions from sort.c (compiled with -DLIB_SORT)
+extern void bubble_sort(int arr[], int n);
+extern int custom_atoi(const char *s);
+
+// Helper function to print a double value with one decimal place.
+// Since xv6's printf doesn't support %f, we split the double into integer and fractional parts.
+void printDouble(char *label, double value) {
+  int intpart = (int)value;
+  int frac = (int)((value - intpart) * 10);
+  if(frac < 0)
+    frac = -frac;
+  printf(1, "%s: %d.%d\n", label, intpart, frac);
+}
+
+int main(int argc, char *argv[]) {
+  if(argc < 2){
+    printf(2, "Usage: printstats num1 num2 ...\n");
+    exit();
+  }
+  
+  int n = argc - 1;
+  
+  // Allocate memory for the numbers array
+  int *nums = malloc(n * sizeof(int));
+  if(nums == 0){
+    printf(2, "Memory allocation failed\n");
+    exit();
+  }
+  
+  // Convert command-line arguments to integers using custom_atoi (handles negatives) --Mostafa
+  for(int i = 0; i < n; i++){
+    nums[i] = custom_atoi(argv[i+1]);
+  }
+  
+  // Calculate min, max and sum for average
+  int min = nums[0], max = nums[0], sum = 0;
+  for(int i = 0; i < n; i++){
+    if(nums[i] < min)
+      min = nums[i];
+    if(nums[i] > max)
+      max = nums[i];
+    sum += nums[i];
+  }
+  double avg = (double)sum / n;
+  
+  // Calculate variance correctly using floating-point arithmetic
+  double variance = 0;
+  for(int i = 0; i < n; i++){
+    double diff = nums[i] - avg;
+    variance += diff * diff;
+  }
+  variance /= n;
+  double stddev = variance;  // stddev^2 is stored in stddev
+  
+  // Allocate memory for a copy of the array to compute the median
+  int *sorted = malloc(n * sizeof(int));
+  if(sorted == 0){
+    printf(2, "Memory allocation failed\n");
+    free(nums);
+    exit();
+  }
+  for(int i = 0; i < n; i++){
+    sorted[i] = nums[i];
+  }
+  
+  // Use the external bubble_sort function from sort.c
+  bubble_sort(sorted, n);
+  
+  double median;
+  if(n % 2 == 0)
+    median = (sorted[n/2 - 1] + sorted[n/2]) / 2.0;
+  else
+    median = sorted[n/2];
+  
+  // Print the computed statistics, using floating-point values where needed.
+  printf(1, "Count: %d\n", n);
+  printDouble("Average", avg);
+  printDouble("Variance (stddev^2)", stddev);
+  printDouble("Median", median);
+  printf(1, "Min: %d\n", min);
+  printf(1, "Max: %d\n", max);
+  
+  free(nums);
+  free(sorted);
+  exit();
+}
