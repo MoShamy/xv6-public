@@ -3,11 +3,45 @@
 #include "stat.h"
 #include "user.h"
 
-// Declare external functions from sort.c (compiled with -DLIB_SORT)
-extern void bubble_sort(int arr[], int n);
-extern int custom_atoi(const char *s);
 
-// Helper function to print a double value with one decimal place.
+void bubble_sort(int arr[], int n) {
+  int swapped = 0;
+  int i, j, temp;
+
+  for (i = 0; i < n - 1; i++) {
+    swapped = 0;
+    for (j = 0; j < n - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+        swapped = 1;
+      }
+    }
+    if (swapped == 0)
+      break;
+  }
+}
+
+
+int custom_atoi(const char *s) {
+  int n = 0;
+  int sign = 1;
+
+  if (*s == '-') {
+      sign = -1;
+      s++;
+  }
+
+  while ('0' <= *s && *s <= '9') { // converting string to int, taken from the regular atoi function  --Mostafa
+      n = n * 10 + (*s - '0'); // ascii conversion
+      s++;
+  }
+
+  return sign * n;
+}
+
+
 // Since xv6's printf doesn't support %f, we split the double into integer and fractional parts.
 void printDouble(char *label, double value) {
   int intpart = (int)value;
