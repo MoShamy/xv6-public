@@ -151,10 +151,6 @@ _%: %.o $(ULIB)
 	$(OBJDUMP) -S $@ > $*.asm
 	$(OBJDUMP) -t $@ | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > $*.sym
 	
-_printstats: printstats.o sort_for_printstats.o $(ULIB)
-	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o _printstats printstats.o sort_for_printstats.o $(ULIB)
-	$(OBJDUMP) -S _printstats > printstats.asm
-	$(OBJDUMP) -t _printstats | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > printstats.sym
 
 _forktest: forktest.o $(ULIB)
 	# forktest has less library code linked in - needs to be small
@@ -170,9 +166,6 @@ mkfs: mkfs.c fs.h
 # details:
 # http://www.gnu.org/software/make/manual/html_node/Chained-Rules.html
 .PRECIOUS: %.o
-
-sort_for_printstats.o: sort.c
-	$(CC) -DLIB_SORT -c sort.c -o sort_for_printstats.o
 
 UPROGS=\
  _cat\
@@ -263,6 +256,7 @@ EXTRA=\
  ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
  printf.c umalloc.c nice.c, dpro.c ps.c\
  sort.c\
+ printstats.c\
  README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
  .gdbinit.tmpl gdbutil\
 
