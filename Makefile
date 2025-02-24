@@ -177,6 +177,7 @@ UPROGS=\
  _ln\
  _ls\
  _mkdir\
+ _printstats\
  _rm\
  _sh\
  _stressfs\
@@ -186,6 +187,7 @@ UPROGS=\
  _save\
   _sort\
   _printstats\
+
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -258,7 +260,7 @@ EXTRA=\
  printf.c umalloc.c nice.c, dpro.c ps.c\
  sort.c\
  save.c\
- printstats.c\
+
  README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
  .gdbinit.tmpl gdbutil\
 
