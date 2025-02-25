@@ -24,23 +24,6 @@ void bubble_sort(int arr[], int n) {
 }
 
 
-int custom_atoi(const char *s) {
-  int n = 0;
-  int sign = 1;
-
-  if (*s == '-') {
-      sign = -1;
-      s++;
-  }
-
-  while ('0' <= *s && *s <= '9') { // converting string to int, taken from the regular atoi function  --Mostafa
-      n = n * 10 + (*s - '0'); // ascii conversion
-      s++;
-  }
-
-  return sign * n;
-}
-
 
 // Since xv6's printf doesn't support %f, we split the double into integer and fractional parts.
 void printDouble(char *label, double value) {
@@ -66,9 +49,9 @@ int main(int argc, char *argv[]) {
     exit();
   }
   
-  // Convert command-line arguments to integers using custom_atoi (handles negatives) --Mostafa
+  // Convert command-line arguments to integers using custom atoi (handles negatives) --Mostafa
   for(int i = 0; i < n; i++){
-    nums[i] = custom_atoi(argv[i+1]);
+    nums[i] = atoi(argv[i+1]);
   }
   
   // Calculate min, max and sum for average

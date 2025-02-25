@@ -82,16 +82,22 @@ stat(const char *n, struct stat *st)
 }
 
 int
-atoi(const char *s)
-{
-  int n;
+atoi(const char *s){
+  int n = 0;
+  int sign = 1;
 
-  n = 0;
-  while('0' <= *s && *s <= '9')
-    n = n*10 + *s++ - '0';
-  return n;
+  if (*s == '-') {
+      sign = -1;
+      s++;
+  }
+
+  while ('0' <= *s && *s <= '9') { // converting string to int, taken from the regular atoi function  --Mostafa
+      n = n * 10 + (*s - '0'); // ascii conversion
+      s++;
+  }
+
+  return sign * n;
 }
-
 void*
 memmove(void *vdst, const void *vsrc, int n)
 {
