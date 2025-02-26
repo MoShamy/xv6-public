@@ -46,7 +46,7 @@ sys_getpid(void)
 int
 sys_getppid(void)
 {
-  return myproc()->parent->pid;
+  return myproc()->parent ? myproc()->parent->pid : 0;
 }
 
 int
