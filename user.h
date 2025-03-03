@@ -1,5 +1,9 @@
 struct stat;
 struct rtcdate;
+struct timeval {
+  long tv_sec;
+  long tv_usec;
+};
 
 // system calls
 int fork(void);
@@ -23,6 +27,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int gettimeofday(struct timeval *tv);
 
 // ulib.c
 int stat(const char*, struct stat*);
