@@ -46,6 +46,13 @@ sys_getpid(void)
   return myproc()->pid;
 }
 
+//My new system call, so 
+int
+sys_getppid(void)
+{
+  return myproc()->parent ? myproc()->parent->pid : 0;
+}
+
 int
 sys_sbrk(void)
 {

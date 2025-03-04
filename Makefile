@@ -187,7 +187,8 @@ UPROGS=\
  _save\
  _sort\
  _printstats\
- _timeget
+ _test_ppid\
+ _timeget\
 
 
 fs.img: mkfs README $(UPROGS)
@@ -260,6 +261,7 @@ EXTRA=\
  ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
  printf.c umalloc.c nice.c, dpro.c ps.c\
  sort.c\
+ test_ppid.c\
  README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
  .gdbinit.tmpl gdbutil\
 

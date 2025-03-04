@@ -27,6 +27,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int getppid(void);
 int gettimeofday(struct timeval *tv);
 
 // ulib.c
