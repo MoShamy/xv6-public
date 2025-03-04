@@ -188,6 +188,7 @@ UPROGS=\
  _sort\
  _printstats\
  _test_ppid\
+ _timeget\
 
 
 fs.img: mkfs README $(UPROGS)

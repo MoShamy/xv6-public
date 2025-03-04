@@ -7,6 +7,10 @@
 #include "mmu.h"
 #include "proc.h"
 
+#ifndef HZ
+#define HZ 100
+#endif
+
 int
 sys_fork(void)
 {
@@ -95,4 +99,26 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+int
+sys_gettimeofday(void)
+{
+  struct timeval {
+    long tv_sec;
+    long tv_usec;
+  } tv;
+  
+  extern uint ticks;
+  tv.tv_sec = ticks / HZ;
+  tv.tv_usec = (ticks % HZ) * (1000000 / HZ);
+
+  int addr;
+  if(argint(0, &addr) < 0)
+    return -1;
+  
+  if(copyout(myproc()->pgdir, (uint)addr, (char *)&tv, sizeof(tv)) < 0)
+    return -1;
+  
+  return 0;
 }
