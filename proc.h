@@ -12,6 +12,8 @@ struct cpu {
 
 extern struct cpu cpus[NCPU];
 extern int ncpu;
+int printptable(void); //prototype for the print table (test)
+int setpriority(int pid, int priority); //prototype for the setpriority function (test)
 
 //PAGEBREAK: 17
 // Saved registers for kernel context switches.

@@ -511,15 +511,15 @@ printptable(void){
           continue;
 
         switch(p->state){
-        case SLEEPING: printf(1,"%s \t %d \t SLEEPING \t %d \n ", p->name,p->pid,p->priority);
+        case SLEEPING: cprintf("%s \t %d \t SLEEPING \t %d \n ", p->name,p->pid,p->priority);
                       break;
-        case RUNNABLE: printf(1,"%s \t %d \t RUNNABLE \t %d \n ", p->name,p->pid,p->priority);
+        case RUNNABLE: cprintf("%s \t %d \t RUNNABLE \t %d \n ", p->name,p->pid,p->priority);
                       break;
-        case RUNNING:  printf(1,"%s \t %d \t RUNNING \t %d \n ", p->name,p->pid,p->priority);
+        case RUNNING:  cprintf("%s \t %d \t RUNNING \t %d \n ", p->name,p->pid,p->priority);
                       break;
-        case ZOMBIE:   printf(1,"%s \t %d \t ZOMBIE \t %d \n ", p->name,p->pid,p->priority);
+        case ZOMBIE:   cprintf("%s \t %d \t ZOMBIE \t %d \n ", p->name,p->pid,p->priority);
                         break;
-        case EMBRYO:   printf(1,"%s \t %d \t EMBRYO \t %d \n ", p->name,p->pid,p->priority);
+        case EMBRYO:   cprintf("%s \t %d \t EMBRYO \t %d \n ", p->name,p->pid,p->priority);
                         break;
         default: ;
         
