@@ -122,3 +122,22 @@ sys_gettimeofday(void)
   
   return 0;
 }
+
+int
+sys_printptable(void)
+{
+  return printptable();
+}
+
+int
+sys_setpriority(void)
+{
+  
+  int pid, priority;
+  if(argint(0, &pid) < 0) //adding validation on the inputs before sending them to the function
+    return -1;
+  if(argint(1, &priority) < 0)
+    return -1;
+
+  return setpriority(pid, priority);
+}

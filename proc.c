@@ -496,6 +496,70 @@ kill(int pid)
   return -1;
 }
 
+int 
+printptable(void){
+
+    struct proc *p;
+
+    sti();
+    // acquiring the processes table, so no other process can edit it
+    acquire(&ptable.lock);
+      cprintf("name \t pid \t status  \t priority \n");
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+
+        if(p->state == UNUSED)
+          continue;
+
+        switch(p->state){
+        case SLEEPING: printf(1,"%s \t %d \t SLEEPING \t %d \n ", p->name,p->pid,p->priority);
+                      break;
+        case RUNNABLE: printf(1,"%s \t %d \t RUNNABLE \t %d \n ", p->name,p->pid,p->priority);
+                      break;
+        case RUNNING:  printf(1,"%s \t %d \t RUNNING \t %d \n ", p->name,p->pid,p->priority);
+                      break;
+        case ZOMBIE:   printf(1,"%s \t %d \t ZOMBIE \t %d \n ", p->name,p->pid,p->priority);
+                        break;
+        case EMBRYO:   printf(1,"%s \t %d \t EMBRYO \t %d \n ", p->name,p->pid,p->priority);
+                        break;
+        default: ;
+        
+        }
+          
+          
+      }
+      
+
+    release(&ptable.lock);
+
+return 1;
+}
+
+
+int 
+setpriority(int pid, int priority){
+
+    struct proc *p;
+    int old_priority=0;
+
+    
+    // acquiring the processes table, so no other process can edit it
+    acquire(&ptable.lock);
+      
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){ //loop over the process table
+
+      if(pid==p->pid){
+        old_priority=p->priority;
+        p->priority=priority;
+        release(&ptable.lock);
+        return old_priority;
+      } 
+        
+    }
+    release(&ptable.lock);
+
+  return -1; // if proc not found
+}
+
 //PAGEBREAK: 36
 // Print a process listing to console.  For debugging.
 // Runs when user types ^P on console.

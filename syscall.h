@@ -22,3 +22,5 @@
 #define SYS_close  21
 #define SYS_getppid 22
 #define SYS_gettimeofday  23
+#define SYS_printptable 24
+#define SYS_setpriority 25

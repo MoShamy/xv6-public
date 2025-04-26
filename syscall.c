@@ -107,6 +107,8 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_getppid(void);
 extern int sys_gettimeofday(void);
+extern int sys_printptable(void);
+extern int sys_setpriority(void);
 
 
 static int (*syscalls[])(void) = {
@@ -133,6 +135,8 @@ static int (*syscalls[])(void) = {
 [SYS_close]   sys_close,
 [SYS_getppid] sys_getppid,
 [SYS_gettimeofday]  sys_gettimeofday,
+[SYS_printptable] sys_printptable,
+[SYS_setpriority] sys_setpriority,
 };
 
 void
