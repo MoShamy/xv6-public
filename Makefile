@@ -189,6 +189,8 @@ UPROGS=\
  _printstats\
  _test_ppid\
  _timeget\
+ _setpriority\
+ _printptable\
 
 
 fs.img: mkfs README $(UPROGS)
@@ -262,6 +264,8 @@ EXTRA=\
  printf.c umalloc.c nice.c, dpro.c ps.c\
  sort.c\
  test_ppid.c\
+ setpriority.c\
+ printptable.c\
  README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
  .gdbinit.tmpl gdbutil\
 

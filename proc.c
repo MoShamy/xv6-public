@@ -504,22 +504,22 @@ printptable(void){
     sti();
     // acquiring the processes table, so no other process can edit it
     acquire(&ptable.lock);
-      cprintf("name \t pid \t status  \t priority \n");
+      cprintf("name \t\t\t pid \t\t\t status  \t\t\t priority \n");
       for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
 
         if(p->state == UNUSED)
           continue;
 
         switch(p->state){
-        case SLEEPING: cprintf("%s \t %d \t SLEEPING \t %d \n ", p->name,p->pid,p->priority);
+        case SLEEPING: cprintf("%s \t\t\t %d \t\t\t SLEEPING \t\t\t %d \n ", p->name,p->pid,p->priority);
                       break;
-        case RUNNABLE: cprintf("%s \t %d \t RUNNABLE \t %d \n ", p->name,p->pid,p->priority);
+        case RUNNABLE: cprintf("%s \t\t\t %d \t\t\t RUNNABLE \t\t\t %d \n ", p->name,p->pid,p->priority);
                       break;
-        case RUNNING:  cprintf("%s \t %d \t RUNNING \t %d \n ", p->name,p->pid,p->priority);
+        case RUNNING:  cprintf("%s \t\t\t %d \t\t\t RUNNING \t\t\t %d \n ", p->name,p->pid,p->priority);
                       break;
-        case ZOMBIE:   cprintf("%s \t %d \t ZOMBIE \t %d \n ", p->name,p->pid,p->priority);
+        case ZOMBIE:   cprintf("%s \t\t\t %d \t\t\t ZOMBIE \t\t\t %d \n ", p->name,p->pid,p->priority);
                         break;
-        case EMBRYO:   cprintf("%s \t %d \t EMBRYO \t %d \n ", p->name,p->pid,p->priority);
+        case EMBRYO:   cprintf("%s \t\t\t %d \t\t\t EMBRYO \t\t\t %d \n ", p->name,p->pid,p->priority);
                         break;
         default: ;
         

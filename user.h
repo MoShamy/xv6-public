@@ -29,7 +29,8 @@ int sleep(int);
 int uptime(void);
 int getppid(void);
 int gettimeofday(struct timeval *tv);
-
+int printptable(void); //prototype for the print table (test)
+int setpriority(int pid, int priority); //prototype for the setpriority function (test)
 
 // ulib.c
 int stat(const char*, struct stat*);
